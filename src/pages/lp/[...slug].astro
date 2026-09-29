@@ -28,6 +28,10 @@ const extract = (pattern: RegExp) => {
 const originalForm = extract(/<form class="form"[\s\S]*?<\/form>/);
 const form = originalForm.replace('value="Homepage"', `value="Landing page: ${variant?.slug}"`);
 const path = variant ? `/lp/${variant.slug}/` : '/lp/';
+const hasLpPhone = Boolean(siteConfig.lpPhoneHref && siteConfig.lpPhoneDisplay);
+const callCta = hasLpPhone
+  ? { href: `tel:${siteConfig.lpPhoneHref}`, label: siteConfig.lpPhoneDisplay, aria: `Call ${siteConfig.brand} at ${siteConfig.lpPhoneDisplay}` }
+  : { href: '#main', label: 'Request a call', aria: 'Go to the request form' };
 const title = variant ? `${variant.name} | Topeka Hydro Jetting Pros` : 'Topeka landing pages | Topeka Hydro Jetting Pros';
 ---
 <!doctype html>
@@ -48,7 +52,7 @@ const title = variant ? `${variant.name} | Topeka Hydro Jetting Pros` : 'Topeka 
   <header class="header lp-header">
     <div class="wrap lp-nav">
       <span class="brand">Topeka <i>Hydro Jetting</i> Pros</span>
-      <a class="btn lp-header-call" href={`tel:${siteConfig.phoneHref}`} aria-label={`Call ${siteConfig.brand} at ${siteConfig.phoneDisplay}`}>{siteConfig.phoneDisplay}</a>
+      <a class="btn lp-header-call" href={callCta.href} aria-label={callCta.aria}>{callCta.label}</a>
     </div>
   </header>
   <main id="main">
@@ -80,7 +84,9 @@ const title = variant ? `${variant.name} | Topeka Hydro Jetting Pros` : 'Topeka 
         <p>{variant.objection}</p>
         <p>Include the drains affected, when the issue began and any cleaning or inspection already done. The form above sends those details with your request.</p>
         <a class="btn" href="#main">Request a call</a>
-        <p class="lp-call">Prefer to call? <a href={`tel:${siteConfig.phoneHref}`}>{siteConfig.phoneDisplay}</a></p>
+        <p class="lp-call">{hasLpPhone
+          ? <>Prefer to call? <a href={`tel:${siteConfig.lpPhoneHref}`}>{siteConfig.lpPhoneDisplay}</a></>
+          : <>Skip the call? <a href="#main">Tell us about the drain</a></>}</p>
       </div></section>
     </>
   ) : (
@@ -96,7 +102,7 @@ const title = variant ? `${variant.name} | Topeka Hydro Jetting Pros` : 'Topeka 
   <footer class="footer lp-footer">
     <div class="wrap lp-footer-row">
       <span class="brand">{siteConfig.brand}</span>
-      <a href={`tel:${siteConfig.phoneHref}`} aria-label={`Call ${siteConfig.brand} at ${siteConfig.phoneDisplay}`}>{siteConfig.phoneDisplay}</a>
+      <a href={callCta.href} aria-label={callCta.aria}>{callCta.label}</a>
       <nav class="lp-footer-legal" aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms of Service</a></nav>
     </div>
   </footer>
