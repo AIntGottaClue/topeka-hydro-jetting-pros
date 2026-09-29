@@ -4,6 +4,9 @@ export const siteConfig = {
   origin: 'https://topekahydrojetting.prosapp.site',
   phoneDisplay: '(877) 761-0283',
   phoneHref: '+18777610283',
+  // Landing pages (/lp/) call lpPhone when set; when blank, their CTA buttons jump straight to the on-page form instead.
+  lpPhoneDisplay: '(877) 761-0283',
+  lpPhoneHref: '+18777610283',
   ga4MeasurementId: 'G-BZDMYB7Y3P',
   airchattyTrackingId: 'tk_61d238e145314251999b74fdd5c953cf',
 } as const;
