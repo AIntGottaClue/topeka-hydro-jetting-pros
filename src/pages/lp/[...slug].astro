@@ -25,7 +25,6 @@ const extract = (pattern: RegExp) => {
     PHONE_HREF: siteConfig.phoneHref,
   })[key]);
 };
-const floatingCall = extract(/<a[^>]*class="fab-deal"[\s\S]*?<\/a>/);
 const originalForm = extract(/<form class="form"[\s\S]*?<\/form>/);
 const form = originalForm.replace('value="Homepage"', `value="Landing page: ${variant?.slug}"`);
 const path = variant ? `/lp/${variant.slug}/` : '/lp/';
@@ -100,7 +99,6 @@ const title = variant ? `${variant.name} | Topeka Hydro Jetting Pros` : 'Topeka 
       <a href={`tel:${siteConfig.phoneHref}`} aria-label={`Call ${siteConfig.brand} at ${siteConfig.phoneDisplay}`}>{siteConfig.phoneDisplay}</a>
     </div>
   </footer>
-  <Fragment set:html={floatingCall} />
   <script is:inline data-tracking-id={siteConfig.airchattyTrackingId} defer src="https://api.airchatty.com/js/external-tracking.js"></script>
   <script is:inline defer src="/assets/site.js?nav=20260927-10"></script>
 </body>
